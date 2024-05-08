@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!--tree view-->
+    <record id="student_tree_view" model="ir.ui.view">
+        <field name="name">student.record.tree</field>
+        <field name="model">student.record</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active" invisible="1"/>
+                <field name="phone_numbers"/>
+                <field name="address"/>
+                <field name="password" password="True" widget='password'/>
+            </tree>
+        </field>
+    </record>
+
+    <!--from view-->
+    <record id="student_form_view" model="ir.ui.view">
+        <field name="name">student.record.form</field>
+        <field name="model">student.record</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="gender"/>
+                            <field name="birthday"/>
+                            <field name="password" password="True" widget='password'/>
+                        </group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="phone_numbers"/>
+                            <field name="email"/>
+                            <field name="address"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--    search view of student-->
+    <record model="ir.ui.view" id="student_search_view">
+        <field name="name">Student Search view</field>
+        <field name="model">student.record</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <filter string="Unarchived" name="active" domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!--action-->
+    <record id="action_student_view" model="ir.actions.act_window">
+        <field name="name">student</field>
+        <field name="res_model">student.record</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="student_root" name="Student Registration"/>
+    <menuitem id="student_section" action="action_student_view" name="student"
+              parent="student_root" sequence="1"/>
+
+</odoo>
