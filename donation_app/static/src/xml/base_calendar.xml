@@ -1,0 +1,10 @@
+<template>
+     <t t-extend="CalendarView.event.popover">
+        <t t-jquery=".o_cw_popover_delete" t-operation="after">
+            <div t-if="widget.calendarbookingbtn()" class="btn-group ml-2">
+                <button type="button" class="btn oe-accepted-booking ml-2 btn-outline-dark btn-sm accept_button" >Accepted</button>
+                <button type="button" class="btn oe-Rejected-booking ml-2 btn-outline-dark btn-sm reject_button" >Rejected</button>
+            </div>
+        </t>
+    </t>
+</template>

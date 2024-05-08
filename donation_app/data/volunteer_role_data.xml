@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+        <record id="donation_role" model="volunteer.role">
+            <field name="name">Donation Management</field>
+        </record>
+        <record id="volunteer_role" model="volunteer.role">
+            <field name="name">Volunteer Management</field>
+        </record>
+        <record id="calendar_role" model="volunteer.role">
+            <field name="name">Calendar Management</field>
+        </record>
+        <record id="payment_role" model="volunteer.role">
+            <field name="name">Payment Management</field>
+        </record>
+        <record id="expense_role" model="volunteer.role">
+            <field name="name">Expense Management</field>
+        </record>
+
+    </data>
+</odoo>

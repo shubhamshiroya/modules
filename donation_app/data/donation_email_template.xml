@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    template for donation notify-->
+    <record id="donation_email_template" model="mail.template">
+        <field name="name">Send Mail User</field>
+        <field name="model_id" ref="donation_app.model_donation_form"/>
+        <field name="email_from">shubham97515@gmail.com</field>
+        <field name="email_to">${object.email}</field>
+        <field name="subject">Notified of Donation</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="use_default_to" eval="True"/>
+        <field name="body_html" type="xml">
+            <div style="margin: 0px; padding: 0px;">
+                <p>"Happy Birthday,
+                    <strong>${object.donor_name}</strong>
+                </p>
+                <p>you may donate some money and make your day special.
+                    <br/>
+                </p>
+                <p>Thank You</p>
+            </div>
+        </field>
+    </record>
+    <!--    template for registration priest management-->
+    <record id="registration_email_template" model="mail.template">
+        <field name="name">Send Mail User</field>
+        <field name="model_id" ref="donation_app.model_priest_management"/>
+        <field name="email_from">shubham97515@gmail.com</field>
+        <field name="email_to">${object.email}</field>
+        <field name="subject">Notify for Your Account Created</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="use_default_to" eval="True"/>
+        <field name="body_html" type="xml">
+            <div style="margin: 0px; padding: 0px;">
+                <p>"Congratulation",
+                    <strong>${object.first_name}</strong>
+                    <strong>${object.last_name}</strong>
+                </p>
+                <p>you account successfully created in our system.
+                    <br/>
+                </p>
+                <p>your id:
+                    <strong>${object.email}</strong>
+                    <br/>
+                </p>
+                <p>your password:
+                    <strong>${object.password}</strong>
+                </p>
+                <br/>
+                <p>Thank You</p>
+            </div>
+        </field>
+    </record>
+
+    <!--    template for registration volunteer management-->
+    <record id="registration_email_volunteer_template" model="mail.template">
+        <field name="name">Send Mail User</field>
+        <field name="model_id" ref="donation_app.model_volunteer_management"/>
+        <field name="email_from">shubham97515@gmail.com</field>
+        <field name="email_to">${object.email}</field>
+        <field name="subject">Notify for Your Account Created</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="use_default_to" eval="True"/>
+        <field name="body_html" type="xml">
+            <div style="margin: 0px; padding: 0px;">
+                <p>"Congratulation",
+                    <strong>${object.first_name}</strong>
+                    <strong>${object.last_name}</strong>
+                </p>
+                <p>you account successfully created in our system.
+                    <br/>
+                </p>
+                <p>your id:
+                    <strong>${object.email}</strong>
+                    <br/>
+                </p>
+                <p>your password:
+                    <strong>${object.password}</strong>
+                </p>
+                <br/>
+                <p>Thank You</p>
+            </div>
+        </field>
+    </record>
+
+    <!--    template for admin registration -->
+    <record id="registration_email_admin_template" model="mail.template">
+        <field name="name">Send Mail User</field>
+        <field name="model_id" ref="donation_app.model_donation_registration"/>
+        <field name="email_from">shubham97515@gmail.com</field>
+        <field name="email_to">${object.email}</field>
+        <field name="subject">Notify for Your Account Created</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="use_default_to" eval="True"/>
+        <field name="body_html" type="xml">
+            <div style="margin: 0px; padding: 0px;">
+                <p>"Congratulation",
+                    <strong>${object.first_name}</strong>
+                    <strong>${object.last_name}</strong>
+                </p>
+                <p>you account successfully created in our system.
+                    <br/>
+                </p>
+                <p>your id:
+                    <strong>${object.email}</strong>
+                    <br/>
+                </p>
+                <p>your password:
+                    <strong>${object.password}</strong>
+                </p>
+                <br/>
+                <p>Thank You</p>
+            </div>
+        </field>
+    </record>
+
+</odoo>

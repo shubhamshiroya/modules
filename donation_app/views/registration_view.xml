@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--tree view-->
+    <record id="registration_tree_form" model="ir.ui.view">
+        <field name="name">registration.tree.view</field>
+        <field name="model">donation.registration</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="first_name"/>
+                <field name="email"/>
+                <field name="number"/>
+                <field name="center_name"/>
+            </tree>
+        </field>
+    </record>
+    <!--        form view-->
+    <record id="registration_view_form" model="ir.ui.view">
+        <field name="name">registration.form.view</field>
+        <field name="model">donation.registration</field>
+        <field name="arch" type="xml">
+
+            <form string="Registration">
+                <sheet>
+                    <group>
+                        <group>
+                                <field name="first_name"/>
+                                <field name="center_name"/>
+                            <span class="o_form_label o_td_label" name="address_name">
+                                <b>Center Address</b>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Enter Street Name" class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"/>
+                            </div>
+                        </group>
+
+                        <group>
+                            <field name="last_name"/>
+                            <field name="email"/>
+                            <field name="number"/>
+                            <field name="password" password="True" widget='password'/>
+                            <field name="confirm_password" password="True" widget='password'/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="donation_registration_action" model="ir.actions.act_window">
+        <field name="name">Registration</field>
+        <field name="res_model">donation.registration</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="donation_root" name="Donation App"/>
+    <menuitem id="medicine_section" action="donation_registration_action" name="Registration"
+              parent="donation_root" sequence="1" groups="donation_app.admin_group,base.group_system"/>
+
+</odoo>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.module.category" id="module_donation_app_management">
+        <field name="name">Donation App group</field>
+        <field name="description">Donation User For Rule</field>
+        <field name="sequence">20</field>
+    </record>
+
+<!--  Group for Admin and Priest  -->
+
+    <record id="admin_group" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id" ref="module_donation_app_management"/>
+    </record>
+    <record id="priest_group" model="res.groups">
+        <field name="name">Priest</field>
+        <field name="category_id" ref="module_donation_app_management"/>
+    </record>
+
+    <!--    volunteer roles groups-->
+    <record id="donation_form_group" model="res.groups">
+        <field name="name">Donation</field>
+        <field name="category_id" ref="module_donation_app_management"/>
+    </record>
+    <record id="volunteer_group" model="res.groups">
+        <field name="name">Volunteer</field>
+        <field name="category_id" ref="module_donation_app_management"/>
+    </record>
+    <record id="calendar_group" model="res.groups">
+        <field name="name">Calendar</field>
+        <field name="category_id" ref="module_donation_app_management"/>
+    </record>
+    <record id="payment_group" model="res.groups">
+        <field name="name">Payment</field>
+        <field name="category_id" ref="module_donation_app_management"/>
+    </record>
+    <record id="expense_group" model="res.groups">
+        <field name="name">Expense</field>
+        <field name="category_id" ref="module_donation_app_management"/>
+    </record>
+    <record id="registration_group" model="res.groups">
+        <field name="name">Registration</field>
+        <field name="category_id" ref="module_donation_app_management"/>
+    </record>
+
+<!--    record rule for Admin and Priest-->
+    <record id="priest_record_rule_for_admin" model="ir.rule">
+        <field name="name">See Only His Priest</field>
+        <field name="model_id" ref="model_priest_management"/>
+        <field name="domain_force">[('create_uid','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('donation_app.admin_group'))]"/>
+    </record>
+    <record id="priest_record_rule_for_priest" model="ir.rule">
+        <field name="name">See Only Self Record</field>
+        <field name="model_id" ref="model_priest_management"/>
+        <field name="domain_force">['|', ('email', '=', user.email),('create_uid','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('donation_app.priest_group'))]"/>
+    </record>
+    <record id="priest_record_rule_for_volunteer" model="ir.rule">
+        <field name="name">See Only Self Record</field>
+        <field name="model_id" ref="model_priest_management"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('donation_app.volunteer_group'))]"/>
+    </record>
+    <record id="volunteer_record_rule_for_priest" model="ir.rule">
+        <field name="name">See Only His Priest</field>
+        <field name="model_id" ref="model_volunteer_management"/>
+        <field name="domain_force">[('create_uid','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('donation_app.priest_group'))]"/>
+    </record>
+
+    <!--     booking calendar & calendar record rule -->
+
+    <record id="calendar_record_rule_for_priest" model="ir.rule">
+        <field name="name">See All the calendar Record</field>
+        <field name="model_id" ref="model_calendar_booking"/>
+        <field name="domain_force">[('state', 'in', ('draft', 'accept','reject'))]</field>
+        <field name="groups" eval="[(4, ref('donation_app.priest_group'))]"/>
+    </record>
+
+    <record id="booking_calendar_view_rule" model="ir.rule">
+        <field name="name">Calendar Rule</field>
+        <field name="model_id" ref="model_calendar_booking"/>
+        <field name="domain_force">[('state', '=', 'accept')]</field>
+        <field name="groups" eval="[(4, ref('donation_app.admin_group'))]"/>
+    </record>
+    <record id="calendar_record_rule_for_calendar" model="ir.rule">
+        <field name="name">See All the calendar Record</field>
+        <field name="model_id" ref="model_calendar_booking"/>
+        <field name="domain_force">[('state', 'in', ('draft', 'accept','reject'))]</field>
+        <field name="groups" eval="[(4, ref('donation_app.calendar_group'))]"/>
+    </record>
+
+    <!--Res Users record rules-->
+    <record id="res_user_rule_for_admin" model="ir.rule">
+        <field name="name">See Only his Priest Record</field>
+        <field name="model_id" ref="model_res_users"/>
+        <field name="domain_force">['|','|','|',('id', '=',1),('id', '=',user.id),('create_uid','=',user.id),('active','=',False)]</field>
+        <field name="groups" eval="[(4, ref('donation_app.admin_group')),(4, ref('donation_app.priest_group'))]"/>
+    </record>
+
+<!--apply default group when install module-->
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4,ref('base.group_user')),(4,ref('donation_app.registration_group'))]"/>
+    </record>
+
+</odoo>

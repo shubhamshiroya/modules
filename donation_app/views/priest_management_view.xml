@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--tree view-->
+    <record id="priest_tree_form" model="ir.ui.view">
+        <field name="name">priest.tree.view</field>
+        <field name="model">priest.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="first_name"/>
+                <field name="last_name"/>
+                <field name="email"/>
+                <field name="number"/>
+                <field name="state" widget="badge" decoration-danger="state == 'inactive'"
+                       decoration-success="state == 'active'" string="Status"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!--  form view-->
+    <record id="priest_view_form" model="ir.ui.view">
+        <field name="name">priest.form.view</field>
+        <field name="model">priest.management</field>
+        <field name="arch" type="xml">
+            <form string="Priest Management">
+                <header>
+                    <button name="priest_active" string="Active" type="object"
+                            class="btn btn-primary" groups="donation_app.admin_group"/>
+                    <button name="priest_inactive" string="Inactive" type="object"
+                            class="btn btn-primary" groups="donation_app.admin_group"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="active,inactive"
+                           readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="first_name"/>
+                            <field name="user_name"/>
+                            <span class="o_form_label o_td_label" name="address_name">
+                                <b>Center Address</b>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Enter Street Name" class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"/>
+                            </div>
+                            <field name="email"/>
+                            <field name="guid_id"/>
+                        </group>
+                        <group>
+                            <field name="last_name"/>
+                            <field name="number"/>
+                            <field name="password" password="True" widget='password'/>
+                            <field name="confirm_password" password="True" widget='password'/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="volunteer_ids" readonly="1" groups="donation_app.admin_group">
+                            <tree>
+                                <field name="first_name" string="First Name"/>
+                                <field name="last_name" string="Last Name"/>
+                                <field name="email" string="Email"/>
+                                <field name="volunteer_role_id" string="Role"/>
+                                <field name="state" widget="badge" decoration-danger="state == 'inactive'"
+                                       decoration-success="state == 'active'" string="Status"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    search view for priest-->
+    <record id="view_priest_management_search" model="ir.ui.view">
+        <field name="name">priest.management.search</field>
+        <field name="model">priest.management</field>
+        <field name="arch" type="xml">
+            <search string="Priest">
+                <field name="name"
+                       filter_domain="['|','|',('first_name','ilike',self),('last_name','ilike',self),('email','ilike',self)]"/>
+                <filter string="Active" name="state" domain="[('state','=','active')]"/>
+                <filter string="Inactive" name="state" domain="[('state','=','inactive')]"/>
+                <filter string="Admin" name="mentor_id" context="{'group_by': 'mentor_id'}"/>
+                <filter string="Status" name="state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="priest_form_action" model="ir.actions.act_window">
+        <field name="name">Priest Management</field>
+        <field name="res_model">priest.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="donation_root" name="Donation App"/>
+    <menuitem id="priest_section" action="priest_form_action" name="Priest Management"
+              parent="donation_root" sequence="3" groups="donation_app.admin_group,donation_app.priest_group"/>
+</odoo>
+

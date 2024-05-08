@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequences for unics code generate-->
+
+    <record id="seq_for_donation" model="ir.sequence">
+        <field name="name">Donation Sequence</field>
+        <field name="code">donation.form</field>
+        <field name="prefix">DON</field>
+        <field name="padding">5</field>
+        <field eval="1" name="number_increment"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="calendar_management_calendar_view" model="ir.ui.view">
+        <field name="name">Calendar Event Calendar</field>
+        <field name="model">calendar.management</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar Events" date_start="date_and_time" color="uid">
+                <field name="uid" filters="1"/>
+                <field name="partner_ids" widget="many2many_tags_avatar" write_model="calendar.contacts" write_field="partner_id" avatar_field="image_128"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="mobile_number"/>
+                <field name="purpose"/>
+                <field name="address"/>
+                <field name="date_and_time"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="calendar_management_tree_view" model="ir.ui.view">
+        <field name="name">Calendar Events Tree</field>
+        <field name="model">calendar.management</field>
+        <field name="arch" type="xml">
+            <tree string="Calendar Events" multi_edit="1">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="mobile_number"/>
+                <field name="purpose"/>
+                <field name="address"/>
+                <field name="date_and_time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="calendar_management_form_view" model="ir.ui.view">
+        <field name="name">Calendar Booking Form</field>
+        <field name="model">calendar.management</field>
+        <field name="arch" type="xml">
+            <form string="Calendar Events">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="mobile_number"/>
+                        </group>
+                        <group>
+                            <field name="purpose"/>
+                            <field name="address"/>
+                            <field name="date_and_time"/>
+                            <field name="uid"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="calendar_management_action" model="ir.actions.act_window">
+            <field name="name">Calendar Management</field>
+            <field name="res_model">calendar.management</field>
+            <field name="view_mode">calendar,tree,form</field>
+    </record>
+
+    <menuitem id="calendar_event_menu" name="Calendar Event" parent="calendar_menu"
+              action="calendar_management_action" groups="donation_app.admin_group,donation_app.priest_group,donation_app.calendar_group" sequence="2"/>
+
+</odoo>

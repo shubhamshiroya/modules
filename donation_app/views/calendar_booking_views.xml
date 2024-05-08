@@ -1,0 +1,89 @@
+<odoo>
+    <record id="calendar_booking_calendar_view" model="ir.ui.view">
+        <field name="name">Calendar Booking Calender</field>
+        <field name="model">calendar.booking</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar Booking" date_start="date_and_time" color="uid">
+                <field name="uid" filters="1"/>
+                <field name="partner_ids" widget="many2many_tags_avatar" write_model="calendar.contacts" write_field="partner_id" avatar_field="image_128"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="mobile_number"/>
+                <field name="purpose"/>
+                <field name="date_and_time"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="calendar_booking_tree_view" model="ir.ui.view">
+        <field name="name">Calendar Booking Tree</field>
+        <field name="model">calendar.booking</field>
+        <field name="arch" type="xml">
+            <tree string="Calendar Booking" multi_edit="1">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="mobile_number"/>
+                <field name="purpose"/>
+                <field name="address"/>
+                <field name="date_and_time"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="calendar_booking_search_view" model="ir.ui.view">
+        <field name="name">Calendar Booking Search</field>
+        <field name="model">calendar.booking</field>
+        <field name="arch" type="xml">
+            <search string="Calendar Booking">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="mobile_number"/>
+                <field name="purpose"/>
+                <field name="address"/>
+                <field name="date_and_time"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="calendar_booking_form_view" model="ir.ui.view">
+        <field name="name">Calendar Booking Form</field>
+        <field name="model">calendar.booking</field>
+        <field name="arch" type="xml">
+            <form string="Calendar Booking" edit="false">
+                <header groups="donation_app.priest_group">
+                    <button name="button_accept" string="Accept" type="object" class="btn btn-primary" attrs="{'invisible': [('state', '!=', 'draft'), ('state', '!=', 'accept')]}"/>
+                    <button name="button_reject" string="Rejected" type="object" class="btn btn-primary" attrs="{'invisible': [('state', '!=', 'draft'), ('state', '!=', 'accept')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,accept,reject" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="mobile_number"/>
+                            <field name="uid"/>
+                        </group>
+                        <group>
+                            <field name="purpose"/>
+                            <field name="address"/>
+                            <field name="date_and_time"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="calendar_booking_action" model="ir.actions.act_window">
+            <field name="name">Calendar Booking</field>
+            <field name="res_model">calendar.booking</field>
+            <field name="view_mode">calendar,tree,form</field>
+    </record>
+    <menuitem name="Calendar Management" id="calendar_menu" parent="donation_app.donation_root"
+        sequence="5" groups="donation_app.admin_group,donation_app.priest_group,donation_app.calendar_group"/>
+
+    <menuitem id="calendar_booking_menu" name="Calendar Booking" parent="calendar_menu"
+              action="calendar_booking_action" sequence="1"/>
+
+</odoo>

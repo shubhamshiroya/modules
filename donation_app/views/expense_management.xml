@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="expense_managemwnt_tree_view" model="ir.ui.view">
+            <field name="name">Expense Management Tree View</field>
+            <field name="model">expense.management</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="expense_name"/>
+                    <field name="amount_of_expense"/>
+                    <field name="date_and_time_of_expense"/>
+                    <field name="vendor_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="expense_managemwnt_search_view" model="ir.ui.view">
+            <field name="name">Expense Management Search View</field>
+            <field name="model">expense.management</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="expense_name"/>
+                    <field name="amount_of_expense"/>
+                    <field name="date_and_time_of_expense"/>
+                    <field name="vendor_name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="expense_managemwnt_form_view" model="ir.ui.view">
+            <field name="name">Expense Management Form View</field>
+            <field name="model">expense.management</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="expense_name"/>
+                                <field name="amount_of_expense"/>
+                            </group>
+                            <group>
+                                <field name="date_and_time_of_expense"/>
+                                <field name="vendor_name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="expense_management_action" model="ir.actions.act_window">
+            <field name="name">Expense Management</field>
+            <field name="res_model">expense.management</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="donation_root" name="Donation App"/>
+        <menuitem id="expense_management_menu" name="Expense Management" parent="donation_root" action="expense_management_action"
+                  sequence="4" groups="donation_app.admin_group,donation_app.priest_group,donation_app.expense_group"/>
+
+    </data>
+</odoo>
+

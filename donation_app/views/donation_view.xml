@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--tree view-->
+    <record id="donation_tree_form" model="ir.ui.view">
+        <field name="name">donation.tree.view</field>
+        <field name="model">donation.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" decoration-bf="1"/>
+                <field name="donor_name"/>
+                <field name="number"/>
+                <field name="donation_purpose"/>
+                <field name="current_time"/>
+            </tree>
+        </field>
+    </record>
+    <!--        form view-->
+    <record id="donation_view_form" model="ir.ui.view">
+        <field                                                  name="name">donation.form.view</field>
+        <field name="model">donation.form</field>
+        <field name="arch" type="xml">
+            <form string="Donation">
+                <header>
+                    <button name="payment_offline" string="Payment Offline" type="object"
+                            class="btn btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="donor_name"/>
+                            <span class="o_form_label o_td_label" name="address_name">
+                                <b>Address</b>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Enter Street Name" class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"/>
+                            </div>
+                            <field name="current_time"/>
+                            <field name="birthday_date"/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="donation_purpose"/>
+                            <field name="number"/>
+                            <field name="amount"/>
+                            <field name="anniversary_date"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    search view for donation management-->
+    <record id="view_donation_management_search" model="ir.ui.view">
+        <field name="name">donation.form.search</field>
+        <field name="model">donation.form</field>
+        <field name="arch" type="xml">
+            <search string="Donation">
+                <field name="name" string="Search"
+                       filter_domain="['|','|',('name','ilike',self),('donor_name','ilike',self),('number','ilike',self)]"/>
+            </search>
+        </field>
+    </record>
+    <record id="donation_form_action" model="ir.actions.act_window">
+        <field name="name">Donation Management</field>
+        <field name="res_model">donation.form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="donation_root" name="Donation App"/>
+    <menuitem id="donation_form_section_id" action="donation_form_action" name="Donation Management"
+              parent="donation_root" sequence="2" groups="donation_app.admin_group,donation_app.priest_group,donation_app.donation_form_group"/>
+
+</odoo>
